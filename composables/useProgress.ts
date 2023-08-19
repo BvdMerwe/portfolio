@@ -1,6 +1,4 @@
-import { useState } from "#app/composables/state";
-
-const useProgress = () => {
+export default function useProgress() {
   const progress = useState<number>("progress", () => 0);
 
   const setProgress = (value: number) => {
@@ -11,5 +9,4 @@ const useProgress = () => {
     progress,
     setProgress,
   };
-};
-export default useProgress;
+}

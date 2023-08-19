@@ -11,11 +11,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-const props = defineProps(["height"]);
+const { height } = defineProps<{ height: number }>();
 const gradient = ref();
 
 onMounted(() => {
-  gradient.value.style.height = props.height ?? "100%";
+  gradient.value.style.height = height ?? "100%";
 });
 </script>
 <style>

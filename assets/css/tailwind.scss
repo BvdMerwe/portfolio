@@ -4,15 +4,45 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  @apply bg-primary-light text-primary-dark;
+  @apply bg-primary-light text-primary-dark text-paragraph;
   font-family: serif;
   &.styled {
     @apply font-sans bg-primary-dark text-primary-light;
+
+    a:link, a:visited {
+      @apply text-highlight;
+    }
   }
 
-  &, & > * {
+  &, h1, h2, h3, h4, h5, h6, a, span, p, li {
     box-sizing: border-box;
     transition: all 0.4s ease;
     transition-delay: 0s;
   }
+
+  a:link, a:visited {
+    @apply text-[#0000FF];
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-bold;
+}
+h1 {
+  @apply text-h1;
+}
+h2 {
+  @apply text-h2;
+}
+p {
+  @apply text-paragraph;
+}
+p:not(:last-child):not(:first-child) {
+  @apply my-[1em];
+}
+.subheading {
+  @apply text-subheading;
+}
+a {
+  @apply text-inline-link underline;
 }

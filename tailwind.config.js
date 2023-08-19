@@ -37,7 +37,7 @@ export default {
             lineHeight: "normal",
           },
         ],
-        subtitle: [
+        subheading: [
           "16px",
           {
             lineHeight: "normal",
@@ -59,7 +59,7 @@ export default {
         xxs: "2px",
         xs: "4px",
         sm: "8px",
-        md: "16px",
+        md: "15px",
         lg: "32px",
         xl: "64px",
       },
