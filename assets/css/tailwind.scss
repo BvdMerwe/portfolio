@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=Kumbh+Sans:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  @apply bg-primary-light text-primary-dark;
+  font-family: serif;
+  &.styled {
+    @apply font-sans bg-primary-dark text-primary-light;
+  }
+
+  &, & > * {
+    box-sizing: border-box;
+    transition: all 0.4s ease;
+    transition-delay: 0s;
+  }
+}
