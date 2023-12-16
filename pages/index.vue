@@ -99,29 +99,21 @@
         <div class="flex flex-col gap-sm">
           <div class="grid gap-sm">
             <h2>My Skills</h2>
-            <ul
-              :class="[
-                {
-                  'list-disc ps-md': progress < 10,
-                  'flex flex-wrap !flex-row list-none ps-0': progress > 10,
-                  'gap-xs': progress > 15,
-                },
-              ]"
-            >
-              <li><Chip>TypeScript</Chip></li>
-              <li><Chip>JavaScript</Chip></li>
-              <li><Chip>Vue</Chip></li>
-              <li><Chip>NuxtJS</Chip></li>
-              <li><Chip>React</Chip></li>
-              <li><Chip>NextJS</Chip></li>
-              <li><Chip>Angular 13</Chip></li>
-              <li><Chip>PHP</Chip></li>
-              <li><Chip>WordPress</Chip></li>
-              <li><Chip>CraftCMS</Chip></li>
-              <li><Chip>Git / Github Actions</Chip></li>
-              <li><Chip>AWS (S3, ECR, ECS, SSM, SES)</Chip></li>
-              <li><Chip>Kubernetes</Chip></li>
-            </ul>
+            <ChipContainer :chips='[
+              "TypeScript",
+              "JavaScript",
+              "Vue",
+              "NuxtJS",
+              "React",
+              "NextJS",
+              "Angular 13",
+              "PHP",
+              "WordPress",
+              "CraftCMS",
+              "Git / Github Actions",
+              "AWS (S3, ECR, ECS, SSM, SES)",
+              "Kubernetes",
+            ]'/>
           </div>
         </div>
       </div>
@@ -137,16 +129,20 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-md"></div>
+      <div class="flex flex-col gap-md" v-if="companies.length">
+        <CompanyComponent v-for="company in companies" :company="company as Company" :key="company.name" />
+      </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
 import { onMounted } from "vue";
 import useProgress from "~/composables/useProgress";
+import { Company } from "~/types/company";
+import { Job } from "~/types/job";
 const { progress } = useProgress();
-
-onMounted(() => {
+const companies = ref<Company[]>([]);
+onMounted(async () => {
   watchEffect(() => {
     if (progress.value > 0) {
       document.body.classList.add("styled");
@@ -154,5 +150,38 @@ onMounted(() => {
       document.body.classList.remove("styled");
     }
   });
+  const companiesQuery = await queryContent()
+      .where({ _dir: "companies" })
+      .sort({start: -1}).find();
+  const jobsQuery = await queryContent()
+      .where({ _dir: "work" })
+      .find();
+  const data: Company[] = companiesQuery.map((c: any) => {
+    const jobs: Job[] = jobsQuery.map((j: any) => {
+      return <Job>{
+        path: j._path,
+        name: j.name,
+        company: j.company,
+        images: j.images,
+        impact: j.impact,
+        tools: j.tools,
+        challenges: j.challenges,
+        content: j.body,
+      };
+    });
+    console.log(jobsQuery)
+    return <Company>{
+      path: c._path,
+      name: c.name,
+      url: c.url,
+      logo: c.logo,
+      position: c.position,
+      start: c.start,
+      end: c.end,
+      content: c.body,
+      jobs: jobs.filter((j) => j.company === c.name),
+    };
+  });
+  companies.value = data;
 });
 </script>

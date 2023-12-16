@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 
-const { height } = defineProps<{ height: number }>();
+const { height } = defineProps<{ height: string }>();
 const gradient = ref();
 
 onMounted(() => {

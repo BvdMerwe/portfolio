@@ -37,8 +37,11 @@ h2 {
 p {
   @apply text-paragraph;
 }
-p:not(:last-child):not(:first-child) {
-  @apply my-[1em];
+p:not(:last-child) {
+  @apply mb-[1em];
+}
+p:not(:first-child) {
+  @apply mt-[1em];
 }
 .subheading {
   @apply text-subheading;

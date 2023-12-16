@@ -4,4 +4,10 @@ export default defineNuxtConfig({
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.scss",
   },
+  content: {
+    markdown: {
+      mdc: true,
+      anchorLinks: false,
+    },
+  },
 });
