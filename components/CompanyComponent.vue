@@ -1,14 +1,14 @@
 <template>
   <div>
     <div>
-      {{ company.name }} <img :src="company.logo" :alt="company.nameß" />
+      {{ company.name }} <img :src="company.logo" :alt="company.name" />
     </div>
     <div>{{ company.position }}</div>
     <div class="subheading">
       ({{ company.start }} - {{ company.end ?? "Present" }})
     </div>
     <ContentRenderer :value="company.content">
-      <ContentRendererMarkdown :value="company.content" />
+      <slot :value="company.content" />
     </ContentRenderer>
 
     <WorkComponent
@@ -19,7 +19,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Company } from "~/types/company";
-import { Job } from "~/types/job";
+import type { Company } from "~/types/Company";
+import type { Job } from "~/types/Job";
 const { company } = defineProps<{ company: Company }>();
 </script>

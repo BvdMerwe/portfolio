@@ -18,7 +18,7 @@
         href="~/assets/Bernard-CV.pdf"
         download="Bernard-CV.pdf"
         class="no-underline"
-        ><SvgIcon class="inline" name="arrow-down" />&nbsp;CV</a
+        ><SvgIconComponent class="inline" name="arrow-down" />&nbsp;CV</a
       >
     </div>
     <div class="h-full">
@@ -33,7 +33,10 @@
                   }"
                   >LinkedIn</span
                 >
-                <SvgIcon name="linkedin" :class="{ hidden: progress <= 30 }" />
+                <SvgIconComponent
+                  name="linkedin"
+                  :class="{ hidden: progress <= 30 }"
+                />
               </a>
             </li>
             <li class="p-0">
@@ -44,7 +47,10 @@
                   }"
                   >Github</span
                 >
-                <SvgIcon name="github" :class="{ hidden: progress <= 30 }" />
+                <SvgIconComponent
+                  name="github"
+                  :class="{ hidden: progress <= 30 }"
+                />
               </a>
             </li>
             <li class="p-0">
@@ -89,31 +95,33 @@
               I like to focus on front-end development and am dedicated to
               staying current with the latest technologies and trends.
             </p>
-            <InlineCta
+            <InlineCtaComponent
               href="mailto:barny.vdm@gmail.com?subject=I%20like%20your%20style!%20Let's%20collaborate!"
             >
               Let's chat!
-            </InlineCta>
+            </InlineCtaComponent>
           </div>
         </div>
         <div class="flex flex-col gap-sm">
           <div class="grid gap-sm">
             <h2>My Skills</h2>
-            <ChipContainer :chips='[
-              "TypeScript",
-              "JavaScript",
-              "Vue",
-              "NuxtJS",
-              "React",
-              "NextJS",
-              "Angular 13",
-              "PHP",
-              "WordPress",
-              "CraftCMS",
-              "Git / Github Actions",
-              "AWS (S3, ECR, ECS, SSM, SES)",
-              "Kubernetes",
-            ]'/>
+            <ChipContainerComponent
+              :chips="[
+                'TypeScript',
+                'JavaScript',
+                'Vue',
+                'NuxtJS',
+                'React',
+                'NextJS',
+                'Angular 13',
+                'PHP',
+                'WordPress',
+                'CraftCMS',
+                'Git / Github Actions',
+                'AWS (S3, ECR, ECS, SSM, SES)',
+                'Kubernetes',
+              ]"
+            />
           </div>
         </div>
       </div>
@@ -129,8 +137,12 @@
         </p>
       </div>
 
-      <div class="flex flex-col gap-md" v-if="companies.length">
-        <CompanyComponent v-for="company in companies" :company="company as Company" :key="company.name" />
+      <div v-if="companies.length" class="flex flex-col gap-md">
+        <CompanyComponent
+          v-for="company in companies"
+          :key="company.name"
+          :company="company as Company"
+        />
       </div>
     </div>
   </div>
@@ -138,8 +150,9 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import useProgress from "~/composables/useProgress";
-import { Company } from "~/types/company";
-import { Job } from "~/types/job";
+import type { Job } from "~/types/Job";
+import type { Company } from "~/types/Company";
+
 const { progress } = useProgress();
 const companies = ref<Company[]>([]);
 onMounted(async () => {
@@ -150,38 +163,36 @@ onMounted(async () => {
       document.body.classList.remove("styled");
     }
   });
-  const companiesQuery = await queryContent()
-      .where({ _dir: "companies" })
-      .sort({start: -1}).find();
-  const jobsQuery = await queryContent()
-      .where({ _dir: "work" })
-      .find();
-  const data: Company[] = companiesQuery.map((c: any) => {
-    const jobs: Job[] = jobsQuery.map((j: any) => {
-      return <Job>{
-        path: j._path,
-        name: j.name,
-        company: j.company,
-        images: j.images,
-        impact: j.impact,
-        tools: j.tools,
-        challenges: j.challenges,
-        content: j.body,
-      };
-    });
-    console.log(jobsQuery)
-    return <Company>{
-      path: c._path,
-      name: c.name,
-      url: c.url,
-      logo: c.logo,
-      position: c.position,
-      start: c.start,
-      end: c.end,
-      content: c.body,
-      jobs: jobs.filter((j) => j.company === c.name),
-    };
+
+  const companiesQuery = await queryCollection("companies").all();
+
+  const jobsQuery = await queryCollection("work").all();
+
+  const jobs: Job[] = jobsQuery.map((job: any) => {
+    return {
+      path: job._path,
+      name: job.name,
+      company: job.company,
+      images: job.images,
+      impact: job.impact,
+      tools: job.tools,
+      challenges: job.challenges,
+      content: job.body,
+    } as Job;
   });
-  companies.value = data;
+
+  companies.value = companiesQuery.map((company: any) => {
+    return {
+      path: company._path,
+      name: company.name,
+      url: company.url,
+      logo: company.logo,
+      position: company.position,
+      start: company.start,
+      end: company.end,
+      content: company.body,
+      jobs: jobs.filter((j) => j.company === company.name),
+    } as Company;
+  });
 });
 </script>

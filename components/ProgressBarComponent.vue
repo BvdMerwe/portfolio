@@ -51,40 +51,45 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import useProgress from "~/composables/useProgress";
+
 const isDragging = ref(false);
 const dragBar = ref();
 const { progress, setProgress } = useProgress();
 const steps: string[] = [
-  "Just the content",
+  "Literally just the content",
   "Simple",
   "Branded",
   "Modern",
   "Elevated",
 ];
 const currentStep = ref(0);
+
 function clamp(num: number, min: number, max: number) {
   return Math.min(Math.max(num, min), max);
 }
-function endDrag(_e: Event) {
-  _e.preventDefault();
+
+function endDrag(event: Event) {
+  event.preventDefault();
   isDragging.value = false;
 }
-function startDrag(_e: Event) {
-  _e.preventDefault();
+
+function startDrag(event: Event) {
+  event.preventDefault();
   isDragging.value = true;
-  if (_e instanceof TouchEvent) {
-    onDrag(_e);
+  if (event instanceof TouchEvent) {
+    onDrag(event);
   }
 }
-function onDrag(_e: Event) {
-  // console.log(_e);
-  _e.preventDefault();
+
+function onDrag(event: Event) {
+  // console.log(event);
+  event.preventDefault();
   if (isDragging.value) {
-    const w = dragBar.value.offsetWidth;
-    const x = dragBar.value.offsetLeft;
+    const offsetWidth = dragBar.value.offsetWidth;
+    const offsetLeft = dragBar.value.offsetLeft;
     const clientX =
-      (_e as MouseEvent).clientX ?? (_e as TouchEvent).touches[0].clientX;
-    const delta = (clientX - x) / w;
+      (event as MouseEvent).clientX ?? (event as TouchEvent).touches[0].clientX;
+    const delta = (clientX - offsetLeft) / offsetWidth;
     const progressPercent = clamp(delta * 100, 0, 100);
 
     setProgress(progressPercent);

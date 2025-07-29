@@ -1,4 +1,4 @@
-import { Job } from "~/types/job";
+import type { Job } from "~/types/Job";
 
 export interface Company {
   path: string;

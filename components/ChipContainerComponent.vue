@@ -9,13 +9,14 @@
     ]"
   >
     <li v-for="(chip, n) in chips" :key="n">
-      <Chip>{{ chip }}</Chip>
+      <ChipComponent>{{ chip }}</ChipComponent>
     </li>
-    <ContentSlot :use="$slots.default" unwrap="h1" />
+    <slot :use="$slots.default" mdc-unwrap="h1" />
   </ul>
 </template>
 <script setup lang="ts">
 import useProgress from "~/composables/useProgress";
+import ChipComponent from "~/components/ChipComponent.vue";
 const { progress } = useProgress();
 const { chips } = defineProps<{ chips: string[] }>();
 </script>
