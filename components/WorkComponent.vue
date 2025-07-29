@@ -4,13 +4,10 @@
       {{ job.name }} <SvgIconComponent name="chevron-right" />
     </div>
     <div ref="content">
-      <ContentRenderer
-        :components="components"
-        :value="job.content"
-        mdc-unwrap="chip-container"
-      >
-        <h3 class="subheading">Tools:</h3>
-        <ChipContainerComponent :chips="job.tools" />
+      <ContentRenderer :components="components" :value="job.content">
+        <slot mdc-unwrap="chip-container" />
+        <!--        <h3 class="subheading">Tools:</h3>-->
+        <!--        <ChipContainerComponent :chips="job.tools" />-->
       </ContentRenderer>
     </div>
   </div>

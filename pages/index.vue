@@ -191,7 +191,7 @@ onMounted(async () => {
       start: company.start,
       end: company.end,
       content: company.body,
-      jobs: jobs.filter((j) => j.company === company.name),
+      jobs: jobs.filter((job) => job.company === company.name),
     } as Company;
   });
 });

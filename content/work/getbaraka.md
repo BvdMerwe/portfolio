@@ -29,8 +29,10 @@ same WP instance that had been the website previously but now acted as a headles
 We had a very short deadline for this project so the main threat to this project was time. Also, at the time we had no design system in place for the web, so I worked closely with the designers to make one that worked well with our brand and was easy to understand and implement.
 
 ### Tools
-::chip-container{:chips="['Foo','bar','baz']"}
+::chip-container{:chips='["foo","bar","baz"]'}
 ::
+
+{{$doc.tools}}
 
 ### Impact
 - Between 2022 and 2023 we completed **2 Website redesigns**, each of which the development was completed in **just under a month**.
