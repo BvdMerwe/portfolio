@@ -3,7 +3,7 @@
     :class="[
       {
         'list-disc ps-md': progress < 10,
-        'flex flex-wrap !flex-row list-none ps-0': progress > 10,
+        'flex flex-wrap gap-xs !flex-row list-none ps-0': progress > 10,
         'gap-xs': progress > 15,
       },
     ]"

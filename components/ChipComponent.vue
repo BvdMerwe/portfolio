@@ -1,8 +1,8 @@
 <template>
   <span
     :class="{
-      'block py-xs px-md': progress > 10,
-      'border border-highlight rounded-full': progress > 15,
+      'block py-xs': progress > 10,
+      'border border-highlight rounded-full !px-md': progress > 15,
       'text-highlight': progress > 19,
     }"
   >

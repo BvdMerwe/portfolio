@@ -13,13 +13,17 @@
         },
       ]"
     >
-      <a href="/" class="no-underline">~/</a>
-      <a
-        href="~/assets/Bernard-CV.pdf"
-        download="Bernard-CV.pdf"
-        class="no-underline"
-        ><SvgIconComponent class="inline" name="arrow-down" />&nbsp;CV</a
-      >
+      <AnimatePresence>
+        <a href="/" class="no-underline">~/</a>
+      </AnimatePresence>
+      <AnimatePresence>
+        <a
+          href="/assets/Bernard-CV.pdf"
+          download="Bernard-CV.pdf"
+          class="no-underline"
+          ><SvgIconComponent class="inline" name="arrow-down" />&nbsp;CV</a
+        >
+      </AnimatePresence>
     </div>
     <div class="h-full">
       <div class="flex flex-col gap-xl sticky top-[40px]">
@@ -27,56 +31,66 @@
           <ul :class="['list-none', { 'flex gap-sm': progress > 20 }]">
             <li class="p-0">
               <a href="https://www.linkedin.com/in/bnardus/" target="_blank">
-                <span
-                  :class="{
-                    hidden: progress > 30,
-                  }"
-                  >LinkedIn</span
-                >
-                <SvgIconComponent
-                  name="linkedin"
-                  :class="{ hidden: progress <= 30 }"
-                />
+                <AnimatePresence>
+                  <span
+                    :class="{
+                      hidden: progress > 30,
+                    }"
+                    >LinkedIn</span
+                  >
+                  <SvgIconComponent
+                    name="linkedin"
+                    :class="{ hidden: progress <= 30 }"
+                  />
+                </AnimatePresence>
               </a>
             </li>
             <li class="p-0">
               <a href="https://github.com/bvdmerwe" target="_blank">
-                <span
-                  :class="{
-                    hidden: progress > 30,
-                  }"
-                  >Github</span
-                >
-                <SvgIconComponent
-                  name="github"
-                  :class="{ hidden: progress <= 30 }"
-                />
+                <AnimatePresence>
+                  <span
+                    :class="{
+                      hidden: progress > 30,
+                    }"
+                    >Github</span
+                  >
+                  <SvgIconComponent
+                    name="github"
+                    :class="{ hidden: progress <= 30 }"
+                  />
+                </AnimatePresence>
               </a>
             </li>
             <li class="p-0">
               <a href="https://www.linkedin.com/in/bnardus/">
-                <span
-                  :class="{
-                    hidden: progress > 30,
-                  }"
-                  >Download my Resume</span
-                >
+                <AnimatePresence>
+                  <span
+                    :class="{
+                      hidden: progress > 30,
+                    }"
+                    >Download my Resume</span
+                  >
+                </AnimatePresence>
               </a>
             </li>
           </ul>
-          <span
-            :class="{
-              hidden: progress < 15,
-              'text-highlight': progress > 30,
-            }"
-          >
+          <AnimatePresence>
             <span
               :class="{
-                hidden: progress < 30,
+                hidden: progress < 15,
+                'text-highlight': progress > 30,
               }"
-              >//</span
-            >Senior Front-end Engineer
-          </span>
+            >
+              <AnimatePresence>
+                <span
+                  :class="{
+                    hidden: progress < 30,
+                  }"
+                  >//</span
+                ></AnimatePresence
+              >Senior Front-end Engineer
+            </span>
+          </AnimatePresence>
           <h1 :class="{}">
             Hey! I'm Bernard<span
               :class="{
@@ -148,7 +162,9 @@
   </div>
 </template>
 <script setup lang="ts">
+// TODO: Fix the motion and animate-presence stuff. Or consider removing.
 import { onMounted } from "vue";
+import { AnimatePresence } from "motion-v";
 import useProgress from "~/composables/useProgress";
 import type { Job } from "~/types/Job";
 import type { Company } from "~/types/Company";
