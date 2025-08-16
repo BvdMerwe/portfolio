@@ -7,6 +7,6 @@ const { name } = defineProps<{
 }>();
 
 const getImageUrl = () => {
-  return new URL(`/assets/images/icon/${name}.svg`, import.meta.url).toString();
+  return `/assets/images/icon/${name}.svg`;
 };
 </script>

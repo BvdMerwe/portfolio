@@ -76,9 +76,8 @@ function endDrag(event: Event) {
 function startDrag(event: Event) {
   event.preventDefault();
   isDragging.value = true;
-  if (event instanceof TouchEvent) {
-    onDrag(event);
-  }
+
+  onDrag(event);
 }
 
 function onDrag(event: Event) {
@@ -88,7 +87,8 @@ function onDrag(event: Event) {
     const offsetWidth = dragBar.value.offsetWidth;
     const offsetLeft = dragBar.value.offsetLeft;
     const clientX =
-      (event as MouseEvent).clientX ?? (event as TouchEvent).touches[0].clientX;
+      (event as MouseEvent).clientX ??
+      (event as TouchEvent).touches[0]?.clientX;
     const delta = (clientX - offsetLeft) / offsetWidth;
     const progressPercent = clamp(delta * 100, 0, 100);
 
