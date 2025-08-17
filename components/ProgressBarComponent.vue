@@ -47,6 +47,7 @@
           'opacity-0 pointer-events-none': !isDragging,
         },
       ]"
+      @mousedown="onDrag"
       @mousemove="onDrag"
       @mouseup="endDrag"
       @mouseleave="endDrag"
