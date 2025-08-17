@@ -1,6 +1,6 @@
 ---
 name: On-page sign-up
-company: Afrihost
+company: afrihost
 images: 
     - /assets/images/work/ah-ops/1.jpg
     - /assets/images/work/ah-ops/2.jpg

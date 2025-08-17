@@ -1,21 +1,23 @@
 <template>
   <div>
-    <div ref="title">{{ job.name }}<SvgIcon name="chevron-right" /></div>
-    <div ref="content">
-      <ContentRenderer :components="components">
-        <ContentRendererMarkdown :value="job.content" unwrap="chip-container" />
-        <h3 class="subheading">Tools:</h3>
-        <ChipContainer :chips="job.tools" />
-      </ContentRenderer>
-    </div>
+    <AccordionComponent>
+      <template #title>
+        <h3 class="text-xl font-normal">{{ job.name }}</h3>
+      </template>
+      <template #content>
+        <ContentRenderer :value="job.content" :prose="true" />
+
+        <div class="my-4">
+          <h3 class="mb-4">Tools:</h3>
+
+          <ChipContainerComponent :chips="job.tools" />
+        </div>
+      </template>
+    </AccordionComponent>
   </div>
 </template>
 <script setup lang="ts">
-import { Job } from "~/types/job";
-import ChipContainer from "~/components/ChipContainer.vue";
+import type { Job } from "~/types/Job";
+
 const { job } = defineProps<{ job: Job }>();
-const components = {
-  ChipContainer,
-  Chip: "Chip",
-};
 </script>

@@ -3,6 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   @apply bg-primary-light text-primary-dark text-paragraph;
   font-family: serif;
@@ -35,16 +36,13 @@ h2 {
   @apply text-h2;
 }
 p {
-  @apply text-paragraph;
+  @apply text-paragraph my-2;
 }
 p:not(:last-child) {
   @apply mb-[1em];
 }
 p:not(:first-child) {
   @apply mt-[1em];
-}
-.subheading {
-  @apply text-subheading;
 }
 a {
   @apply text-inline-link underline;

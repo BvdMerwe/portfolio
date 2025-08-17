@@ -1,3 +1,5 @@
+.idea/
+.continue/
 node_modules
 *.log*
 .nuxt

@@ -1,10 +1,11 @@
 <template>
   <div
     :class="[
-      'font-sans text-primary-light select-none',
+      'font-sans select-none',
       {
         'cursor-grab': !isDragging,
         'cursor-grabbing': isDragging,
+        'text-primary-light': progress > 1,
       },
     ]"
   >
@@ -14,7 +15,11 @@
         '--progress-percentage': `calc(${progress ?? 0}% + 8px)`,
       }"
       :class="[
-        'relative rounded-full border border-white p-xs w-full grid content-center justify-center h-[27px]',
+        'relative rounded-full border p-xs w-full grid content-center justify-center h-[27px]',
+        {
+          'border-black': progress <= 1,
+          'border-primary-light': progress > 1,
+        },
       ]"
       @mousedown="startDrag"
       @touchstart="startDrag"
@@ -42,6 +47,7 @@
           'opacity-0 pointer-events-none': !isDragging,
         },
       ]"
+      @mousedown="onDrag"
       @mousemove="onDrag"
       @mouseup="endDrag"
       @mouseleave="endDrag"
@@ -51,55 +57,60 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import useProgress from "~/composables/useProgress";
+
 const isDragging = ref(false);
 const dragBar = ref();
 const { progress, setProgress } = useProgress();
 const steps: string[] = [
-  "Just the content",
+  "Literally just the content",
   "Simple",
   "Branded",
   "Modern",
   "Elevated",
 ];
-const currentStep = ref(0);
+const currentStep = computed(() => {
+  return progress.value < 50
+    ? clamp(
+        Math.ceil((progress.value / 100) * (steps.length - 1)),
+        0,
+        steps.length - 1,
+      )
+    : clamp(
+        Math.floor((progress.value / 100) * (steps.length - 1)),
+        0,
+        steps.length - 1,
+      );
+});
+
 function clamp(num: number, min: number, max: number) {
   return Math.min(Math.max(num, min), max);
 }
-function endDrag(_e: Event) {
-  _e.preventDefault();
+
+function endDrag(event: Event) {
+  event.preventDefault();
   isDragging.value = false;
 }
-function startDrag(_e: Event) {
-  _e.preventDefault();
+
+function startDrag(event: Event) {
+  event.preventDefault();
   isDragging.value = true;
-  if (_e instanceof TouchEvent) {
-    onDrag(_e);
-  }
+
+  onDrag(event);
 }
-function onDrag(_e: Event) {
-  // console.log(_e);
-  _e.preventDefault();
+
+function onDrag(event: Event) {
+  event.preventDefault();
+
   if (isDragging.value) {
-    const w = dragBar.value.offsetWidth;
-    const x = dragBar.value.offsetLeft;
+    const offsetWidth = dragBar.value.offsetWidth;
+    const offsetLeft = dragBar.value.offsetLeft;
     const clientX =
-      (_e as MouseEvent).clientX ?? (_e as TouchEvent).touches[0].clientX;
-    const delta = (clientX - x) / w;
+      (event as MouseEvent).clientX ??
+      (event as TouchEvent).touches[0]?.clientX;
+    const delta = (clientX - offsetLeft) / offsetWidth;
     const progressPercent = clamp(delta * 100, 0, 100);
 
     setProgress(progressPercent);
-    currentStep.value =
-      progressPercent < 50
-        ? clamp(
-            Math.ceil((progressPercent / 100) * (steps.length - 1)),
-            0,
-            steps.length - 1,
-          )
-        : clamp(
-            Math.floor((progressPercent / 100) * (steps.length - 1)),
-            0,
-            steps.length - 1,
-          );
   }
 }
 </script>
