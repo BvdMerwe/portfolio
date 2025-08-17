@@ -17,12 +17,9 @@
         <a href="/" class="no-underline">~/</a>
       </AnimatePresence>
       <AnimatePresence>
-        <a
-          href="/assets/Bernard-CV.pdf"
-          download="Bernard-CV.pdf"
-          class="no-underline"
-          ><SvgIconComponent class="inline" name="arrow-down" />&nbsp;CV</a
-        >
+        <DownloadResumeComponent>
+          <SvgIconComponent class="inline" name="arrow-down" />&nbsp;CV
+        </DownloadResumeComponent>
       </AnimatePresence>
     </div>
     <div class="h-full">
@@ -68,8 +65,11 @@
                     :class="{
                       hidden: progress > 30,
                     }"
-                    >Download my Resume</span
                   >
+                    <DownloadResumeComponent>
+                      Download my Resume
+                    </DownloadResumeComponent>
+                  </span>
                 </AnimatePresence>
               </a>
             </li>
@@ -169,6 +169,7 @@ import { isAfter } from "date-fns";
 import useProgress from "~/composables/useProgress";
 import type { Job } from "~/types/Job";
 import type { Company } from "~/types/Company";
+import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
 
 const { progress } = useProgress();
 const companies = ref<Company[]>([]);
