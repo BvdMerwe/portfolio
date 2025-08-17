@@ -15,8 +15,6 @@
   </ul>
 </template>
 <script setup lang="ts">
-import useProgress from "~/composables/useProgress";
-import ChipComponent from "~/components/ChipComponent.vue";
 const { progress } = useProgress();
 const { chips } = defineProps<{ chips: string[] }>();
 </script>

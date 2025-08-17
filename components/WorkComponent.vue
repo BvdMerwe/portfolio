@@ -5,7 +5,11 @@
         <h3 class="text-xl font-normal">{{ job.name }}</h3>
       </template>
       <template #content>
-        <ContentRenderer :components="components" :value="job.content">
+        <ContentRenderer
+          :components="components"
+          :value="job.content"
+          :prose="true"
+        >
           <slot mdc-unwrap="chip-container" />
         </ContentRenderer>
       </template>

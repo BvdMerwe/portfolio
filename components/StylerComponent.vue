@@ -10,7 +10,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-import ProgressBarComponent from "~/components/ProgressBarComponent.vue";
-import GradientBlurComponent from "~/components/GradientBlurComponent.vue";
-</script>

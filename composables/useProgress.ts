@@ -2,7 +2,7 @@
 export default function useProgress() {
   const progress = useState<number>("progress", () => 0);
 
-  if (process.client) {
+  onMounted(() => {
     const stored = localStorage.getItem("progress");
 
     if (stored !== null) {
@@ -13,7 +13,7 @@ export default function useProgress() {
     watch(progress, (newValue) => {
       localStorage.setItem("progress", newValue.toString());
     });
-  }
+  });
 
   const setProgress = (value: number) => {
     progress.value = value;
