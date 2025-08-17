@@ -7,7 +7,7 @@ export interface Company {
   logo: string;
   position: string;
   start: string;
-  end: string;
+  end?: string;
   content: Record<string, any>;
   jobs: Job[];
 }

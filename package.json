@@ -32,6 +32,7 @@
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
+    "date-fns": "^4.1.0",
     "motion-v": "^1.6.1",
     "vue3-touch-events": "^5.0.13"
   },

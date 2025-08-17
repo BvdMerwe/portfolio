@@ -1,10 +1,11 @@
 <template>
   <div
     :class="[
-      'font-sans text-primary-light select-none',
+      'font-sans select-none',
       {
         'cursor-grab': !isDragging,
         'cursor-grabbing': isDragging,
+        'text-primary-light': progress > 1,
       },
     ]"
   >
@@ -14,7 +15,11 @@
         '--progress-percentage': `calc(${progress ?? 0}% + 8px)`,
       }"
       :class="[
-        'relative rounded-full border border-white p-xs w-full grid content-center justify-center h-[27px]',
+        'relative rounded-full border p-xs w-full grid content-center justify-center h-[27px]',
+        {
+          'border-black': progress <= 1,
+          'border-primary-light': progress > 1,
+        },
       ]"
       @mousedown="startDrag"
       @touchstart="startDrag"

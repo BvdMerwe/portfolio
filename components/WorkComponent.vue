@@ -1,20 +1,21 @@
 <template>
   <div>
-    <div ref="title">
-      {{ job.name }} <SvgIconComponent name="chevron-right" />
-    </div>
-    <div ref="content">
-      <ContentRenderer :components="components" :value="job.content">
-        <slot mdc-unwrap="chip-container" />
-        <!--        <h3 class="subheading">Tools:</h3>-->
-        <!--        <ChipContainerComponent :chips="job.tools" />-->
-      </ContentRenderer>
-    </div>
+    <AccordionComponent>
+      <template #title>
+        <h3 class="text-xl font-normal">{{ job.name }}</h3>
+      </template>
+      <template #content>
+        <ContentRenderer :components="components" :value="job.content">
+          <slot mdc-unwrap="chip-container" />
+        </ContentRenderer>
+      </template>
+    </AccordionComponent>
   </div>
 </template>
 <script setup lang="ts">
 import type { Job } from "~/types/Job";
 import ChipContainerComponent from "~/components/ChipContainerComponent.vue";
+import AccordionComponent from "~/components/AccordionComponent.vue";
 
 const { job } = defineProps<{ job: Job }>();
 

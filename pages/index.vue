@@ -144,10 +144,10 @@
       <div class="flex flex-col gap-md">
         <h2>Things I’ve done:</h2>
         <p>
-          Over the last 10 years I’ve had the opportunity to work on some
-          amazing projects in a variety of industries! I’ve worked in Energy,
-          Telecoms, Advertising, and Finance! Come with me to see what I’ve done
-          over the years.
+          Over the last decade I’ve had the opportunity to work on some amazing
+          projects in a variety of industries! I’ve worked in Energy, Telecoms,
+          Advertising, and Finance! Come with me to see what I’ve done over the
+          years.
         </p>
       </div>
 
@@ -165,6 +165,7 @@
 // TODO: Fix the motion and animate-presence stuff. Or consider removing.
 import { onMounted } from "vue";
 import { AnimatePresence } from "motion-v";
+import { isAfter } from "date-fns";
 import useProgress from "~/composables/useProgress";
 import type { Job } from "~/types/Job";
 import type { Company } from "~/types/Company";
@@ -173,42 +174,56 @@ const { progress } = useProgress();
 const companies = ref<Company[]>([]);
 onMounted(async () => {
   watchEffect(() => {
-    if (progress.value > 0) {
+    if (progress.value > 1) {
       document.body.classList.add("styled");
     } else {
       document.body.classList.remove("styled");
     }
   });
 
-  const companiesQuery = await queryCollection("companies").all();
+  const companyQuery = await queryCollection("companies").all();
 
-  const jobsQuery = await queryCollection("work").all();
+  const workQuery = await queryCollection("work").all();
 
-  const jobs: Job[] = jobsQuery.map((job: any) => {
+  const jobs: Job[] = workQuery.map((job) => {
     return {
-      path: job._path,
-      name: job.name,
-      company: job.company,
-      images: job.images,
-      impact: job.impact,
-      tools: job.tools,
-      challenges: job.challenges,
+      path: job.path,
+      name: job.meta.name,
+      company: job.meta.company,
+      images: job.meta.images,
+      impact: job.meta.impact,
+      tools: job.meta.tools,
+      challenges: job.meta.challenges,
       content: job.body,
     } as Job;
   });
 
-  companies.value = companiesQuery.map((company: any) => {
-    return {
-      path: company._path,
-      name: company.name,
-      url: company.url,
-      logo: company.logo,
-      position: company.position,
-      start: company.start,
-      end: company.end,
-      content: company.body,
-      jobs: jobs.filter((job) => job.company === company.name),
-    } as Company;
-  });
+  companies.value = companyQuery
+    .sort((a, b) =>
+      isStringDateAfter(a.meta.end as string, b.meta.end as string) ? 0 : 1,
+    )
+    .map((company) => {
+      return {
+        path: company.path,
+        name: company.meta.name,
+        url: company.meta.url,
+        logo: company.meta.logo,
+        position: company.meta.position,
+        start: company.meta.start,
+        end: company.meta.end,
+        content: company.body,
+        jobs: jobs.filter((job) => job.company === company.meta.name),
+      } as Company;
+    });
 });
+
+function isStringDateAfter(
+  dateStringFirst: string,
+  dateStringSecond: string,
+): boolean {
+  const dateFirst = new Date(dateStringFirst);
+  const dateSecond = new Date(dateStringSecond);
+
+  return isAfter(dateFirst, dateSecond);
+}
 </script>
