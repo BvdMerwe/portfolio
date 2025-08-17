@@ -68,7 +68,19 @@ const steps: string[] = [
   "Modern",
   "Elevated",
 ];
-const currentStep = ref(0);
+const currentStep = computed(() => {
+  return progress.value < 50
+    ? clamp(
+        Math.ceil((progress.value / 100) * (steps.length - 1)),
+        0,
+        steps.length - 1,
+      )
+    : clamp(
+        Math.floor((progress.value / 100) * (steps.length - 1)),
+        0,
+        steps.length - 1,
+      );
+});
 
 function clamp(num: number, min: number, max: number) {
   return Math.min(Math.max(num, min), max);
@@ -87,8 +99,8 @@ function startDrag(event: Event) {
 }
 
 function onDrag(event: Event) {
-  // console.log(event);
   event.preventDefault();
+
   if (isDragging.value) {
     const offsetWidth = dragBar.value.offsetWidth;
     const offsetLeft = dragBar.value.offsetLeft;
@@ -99,18 +111,6 @@ function onDrag(event: Event) {
     const progressPercent = clamp(delta * 100, 0, 100);
 
     setProgress(progressPercent);
-    currentStep.value =
-      progressPercent < 50
-        ? clamp(
-            Math.ceil((progressPercent / 100) * (steps.length - 1)),
-            0,
-            steps.length - 1,
-          )
-        : clamp(
-            Math.floor((progressPercent / 100) * (steps.length - 1)),
-            0,
-            steps.length - 1,
-          );
   }
 }
 </script>

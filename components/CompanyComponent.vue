@@ -14,35 +14,87 @@ function determineDateEnd(): string {
     return "Present";
   }
 }
+
+const logo = computed(() => {
+  if (progress.value < 1) {
+    return company.logo.light;
+  } else {
+    return company.logo.dark;
+  }
+});
 </script>
 <template>
-  <div>
-    <h2
-      :class="{
-        hidden: progress >= 10,
-        visible: progress < 10,
-      }"
+  <div class="flex flex-col gap-0">
+    <div
+      :class="[
+        'flex gap-2',
+        {
+          'items-baseline': progress <= 50,
+          'items-center': progress > 50,
+        },
+      ]"
     >
-      {{ company.name }}
-    </h2>
-    <img
-      :class="{
-        hidden: progress <= 10,
-        visible: progress > 10,
-      }"
-      :src="company.logo"
-      :alt="company.name"
-    />
+      <h2
+        :class="[
+          'inline',
+          {
+            hidden: progress >= 10,
+            visible: progress < 10,
+          },
+        ]"
+      >
+        {{ company.name }}
+      </h2>
 
-    <div>{{ company.position }}</div>
-    <div class="subheading">
-      ({{ displayDateStart }} - {{ displayDateEnd ?? "Present" }})
+      <img
+        :class="[
+          'max-w-[120px] inline-block',
+          {
+            hidden: progress <= 10,
+            visible: progress > 10,
+          },
+        ]"
+        :src="logo"
+        :alt="company.name"
+      />
+
+      <a :href="company.url" rel="noreferrer" target="_blank" class="inline">
+        <span :class="{ visible: progress < 50, hidden: progress >= 50 }">
+          (link)
+        </span>
+        <span :class="{ hidden: progress < 50, visible: progress >= 50 }">
+          <SvgIconComponent name="external-link" />
+        </span>
+      </a>
     </div>
+
+    <span
+      :class="[
+        'font-medium text-lg',
+        {
+          '': progress < 10,
+          'text-highlight': progress >= 50,
+        },
+      ]"
+    >
+      <span>{{ company.position }}</span>
+    </span>
+
+    <span
+      :class="[
+        'font-normal text-sm',
+        {
+          'text-white opacity-60': progress > 1,
+        },
+      ]"
+    >
+      ({{ displayDateStart }} - {{ displayDateEnd ?? "Present" }})
+    </span>
+
     <ContentRenderer :value="company.content">
       <slot :value="company.content" />
     </ContentRenderer>
 
-    <h3>Some of the work:</h3>
     <WorkComponent
       v-for="job in company.jobs"
       :key="job.name"

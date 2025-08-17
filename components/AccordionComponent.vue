@@ -22,7 +22,7 @@ const { progress } = useProgress();
   <div
     ref="content"
     :class="[
-      'transition-[grid-template-rows] overflow-hidden grid grid-rows-[0fr]',
+      'transition-[grid-template-rows] overflow-y-hidden grid grid-rows-[0fr]',
       {
         'grid-rows-[1fr]': isOpen || progress <= 10,
       },

@@ -4,4 +4,9 @@ export default defineNuxtConfig({
   tailwindcss: {
     cssPath: "~/assets/css/tailwind.scss",
   },
+  content: {
+    renderer: {
+      anchorLinks: { h2: false, h3: false, h4: false },
+    },
+  },
 });

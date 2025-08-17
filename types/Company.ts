@@ -4,7 +4,10 @@ export interface Company {
   path: string;
   name: string;
   url: string;
-  logo: string;
+  logo: {
+    light: string;
+    dark: string;
+  };
   position: string;
   start: string;
   end?: string;

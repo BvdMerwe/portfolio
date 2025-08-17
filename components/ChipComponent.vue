@@ -2,8 +2,8 @@
   <span
     :class="{
       'block py-xs': progress > 10,
-      'border border-highlight rounded-full !px-md': progress > 15,
-      'text-highlight': progress > 19,
+      'border border-highlight rounded-full !px-md': progress > 33,
+      'text-highlight': progress > 66,
     }"
   >
     <slot />

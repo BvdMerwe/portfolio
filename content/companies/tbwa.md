@@ -1,7 +1,9 @@
 ---
 name: TBWA
 url: https://tbwa.co.za/
-logo: /assets/images/logo/tbwa.png
+logo: 
+  dark: /assets/images/logo/tbwa.png
+  light: /assets/images/logo/tbwa.png
 position: Frontend developer
 start: 2017-08-01
 end: 2020-10-01

@@ -1,5 +1,7 @@
 <template>
+  <div v-if="isLoading">loading</div>
   <div
+    v-else
     class="container mx-auto px-md grid gap-lg grid-cols-1 md:grid-cols-[320px_1fr] mt-[40px] mb-[150px] lg:max-w-[800px]"
   >
     <div
@@ -88,7 +90,7 @@
                   }"
                   >//</span
                 ></AnimatePresence
-              >Senior Front-end Engineer
+              >Senior Frontend Engineer
             </span>
           </AnimatePresence>
           <h1 :class="{}">
@@ -101,12 +103,12 @@
           </h1>
           <div>
             <p>
-              I’m a senior front-end engineer. My friends call me Bernie, and I
+              I’m a senior Frontend engineer. My friends call me Bernie, and I
               made this thing for you to enjoy and learn about my journey.
             </p>
             <p>I’m have a passion for coding and a love for technology.</p>
             <p>
-              I like to focus on front-end development and am dedicated to
+              I like to focus on Frontend development and am dedicated to
               staying current with the latest technologies and trends.
             </p>
             <InlineCtaComponent
@@ -129,6 +131,7 @@
                 'NextJS',
                 'Angular 13',
                 'PHP',
+                'Laravel',
                 'WordPress',
                 'CraftCMS',
                 'Git / Github Actions',
@@ -145,7 +148,7 @@
         <h2>Things I’ve done:</h2>
         <p>
           Over the last decade I’ve had the opportunity to work on some amazing
-          projects in a variety of industries! I’ve worked in Energy, Telecoms,
+          projects in a variety of industries. I’ve worked in Energy, Telecoms,
           Advertising, and Finance! Come with me to see what I’ve done over the
           years.
         </p>
@@ -158,6 +161,7 @@
           :company="company as Company"
         />
       </div>
+      <div v-else><h2>Loading...</h2></div>
     </div>
   </div>
 </template>
@@ -173,6 +177,9 @@ import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
 
 const { progress } = useProgress();
 const companies = ref<Company[]>([]);
+const skills = ref<string[]>();
+const isLoading = ref(true);
+
 onMounted(async () => {
   watchEffect(() => {
     if (progress.value > 1) {
@@ -183,8 +190,8 @@ onMounted(async () => {
   });
 
   const companyQuery = await queryCollection("companies").all();
-
   const workQuery = await queryCollection("work").all();
+  isLoading.value = false;
 
   const jobs: Job[] = workQuery.map((job) => {
     return {
@@ -198,6 +205,12 @@ onMounted(async () => {
       content: job.body,
     } as Job;
   });
+
+  skills.value = jobs.reduce(
+    (previousValue, currentValue) =>
+      previousValue.concat(...currentValue.tools),
+    [] as string[],
+  );
 
   companies.value = companyQuery
     .sort((a, b) =>

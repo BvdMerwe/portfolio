@@ -1,7 +1,9 @@
 ---
 name: Afrihost
 url: https://afrihost.com/
-logo: /assets/images/logo/afrihost.png
+logo: 
+  dark: /assets/images/logo/afrihost.png
+  light: /assets/images/logo/afrihost.png
 position: Frontend team lead
 start: 2020-10-01
 end: 2022-04-01
