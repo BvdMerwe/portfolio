@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import type { Job } from "~/types/Job";
+
+const { job } = defineProps<{ job: Job }>();
+</script>
 <template>
   <div>
     <AccordionComponent>
@@ -16,8 +21,3 @@
     </AccordionComponent>
   </div>
 </template>
-<script setup lang="ts">
-import type { Job } from "~/types/Job";
-
-const { job } = defineProps<{ job: Job }>();
-</script>

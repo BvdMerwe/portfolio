@@ -1,9 +1,20 @@
 <script setup lang="ts">
-defineProps<{
+const { images } = defineProps<{
   images: string[];
 }>();
 const { progress } = useProgress();
-const selectedImage = ref<string | null>(null);
+const selectedImage = ref<number | null>(null);
+
+function showNext() {
+  if (selectedImage.value !== null && selectedImage.value < images.length - 1) {
+    selectedImage.value += 1;
+  }
+}
+function showPrevious() {
+  if (selectedImage.value !== null && selectedImage.value > 0) {
+    selectedImage.value -= 1;
+  }
+}
 </script>
 <template>
   <div
@@ -16,7 +27,7 @@ const selectedImage = ref<string | null>(null);
     ]"
   >
     <img
-      v-for="image in images"
+      v-for="(image, index) in images"
       :key="image"
       :src="image"
       :class="[
@@ -27,17 +38,25 @@ const selectedImage = ref<string | null>(null);
         },
       ]"
       alt="Work Showcase"
-      @click="selectedImage = image"
+      @click="selectedImage = index"
     />
   </div>
   <div
     v-if="selectedImage !== null"
     class="fixed inset-0 backdrop-blur-sm z-[51]"
-    @click="selectedImage = null"
+    tabindex="0"
+    autofocus
+    @keydown.esc="selectedImage = null"
+    @keydown.left="showPrevious"
+    @keydown.right="showNext"
   >
-    <div class="absolute inset-0 bg-black opacity-30"></div>
+    <!--    @click="selectedImage = null"-->
     <div
-      class="h-full flex justify-center items-center relative px-4 mx-auto z-10"
+      class="absolute inset-0 bg-black opacity-30"
+      @click="selectedImage = null"
+    ></div>
+    <div
+      class="h-full grid grid-cols-[50px_1fr_50px] justify-center items-center text-center relative mx-auto z-10"
     >
       <div
         class="absolute right-4 top-4 cursor-pointer z-10"
@@ -45,7 +64,31 @@ const selectedImage = ref<string | null>(null);
       >
         <SvgIconComponent name="cross" class="cursor-pointer" />
       </div>
-      <img alt="Close" :src="selectedImage" />
+      <SvgIconComponent
+        name="chevron-left"
+        :class="[
+          'cursor-pointer justify-self-center',
+          {
+            'opacity-0 pointer-events-none': selectedImage < 1,
+          },
+        ]"
+        @click="showPrevious"
+      />
+      <img
+        class="max-h-screen p-8 justify-self-center"
+        alt="Work Showcase"
+        :src="images[selectedImage]"
+      />
+      <SvgIconComponent
+        name="chevron-right"
+        :class="[
+          'cursor-pointer justify-self-center',
+          {
+            'opacity-0 pointer-events-none': selectedImage == images.length - 1,
+          },
+        ]"
+        @click="showNext"
+      />
     </div>
   </div>
 </template>

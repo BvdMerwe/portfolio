@@ -1,3 +1,78 @@
+<script setup lang="ts">
+// TODO: Fix the motion and animate-presence stuff. Or consider removing.
+import { onMounted } from "vue";
+import { AnimatePresence } from "motion-v";
+import { isAfter } from "date-fns";
+import useProgress from "~/composables/useProgress";
+import type { Job } from "~/types/Job";
+import type { Company } from "~/types/Company";
+import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
+
+const { progress } = useProgress();
+const companies = ref<Company[]>([]);
+const skills = ref<string[]>();
+const isLoading = ref(true);
+
+onMounted(async () => {
+  watchEffect(() => {
+    if (progress.value > 1) {
+      document.body.classList.add("styled");
+    } else {
+      document.body.classList.remove("styled");
+    }
+  });
+
+  const companyQuery = await queryCollection("companies").all();
+  const workQuery = await queryCollection("work").all();
+  isLoading.value = false;
+
+  const jobs: Job[] = workQuery.map((job) => {
+    return {
+      path: job.path,
+      name: job.meta.name,
+      company: job.meta.company,
+      impact: job.meta.impact,
+      tools: job.meta.tools,
+      challenges: job.meta.challenges,
+      content: job.body,
+    } as Job;
+  });
+
+  skills.value = jobs.reduce(
+    (previousValue, currentValue) =>
+      previousValue.concat(...currentValue.tools),
+    [] as string[],
+  );
+
+  companies.value = companyQuery
+    .sort((a, b) =>
+      isStringDateAfter(a.meta.end as string, b.meta.end as string) ? 0 : 1,
+    )
+    .map((company) => {
+      return {
+        path: company.path,
+        name: company.meta.name,
+        url: company.meta.url,
+        logo: company.meta.logo,
+        position: company.meta.position,
+        start: company.meta.start,
+        end: company.meta.end,
+        content: company.body,
+        jobs: jobs.filter((job) => job.company === company.meta.name),
+      } as Company;
+    });
+});
+
+function isStringDateAfter(
+  dateStringFirst: string,
+  dateStringSecond: string,
+): boolean {
+  const dateFirst = new Date(dateStringFirst);
+  const dateSecond = new Date(dateStringSecond);
+
+  return isAfter(dateFirst, dateSecond);
+}
+</script>
 <template>
   <div v-if="isLoading">loading</div>
   <div
@@ -165,79 +240,3 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
-// TODO: Fix the motion and animate-presence stuff. Or consider removing.
-import { onMounted } from "vue";
-import { AnimatePresence } from "motion-v";
-import { isAfter } from "date-fns";
-import useProgress from "~/composables/useProgress";
-import type { Job } from "~/types/Job";
-import type { Company } from "~/types/Company";
-import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
-
-const { progress } = useProgress();
-const companies = ref<Company[]>([]);
-const skills = ref<string[]>();
-const isLoading = ref(true);
-
-onMounted(async () => {
-  watchEffect(() => {
-    if (progress.value > 1) {
-      document.body.classList.add("styled");
-    } else {
-      document.body.classList.remove("styled");
-    }
-  });
-
-  const companyQuery = await queryCollection("companies").all();
-  const workQuery = await queryCollection("work").all();
-  isLoading.value = false;
-
-  const jobs: Job[] = workQuery.map((job) => {
-    return {
-      path: job.path,
-      name: job.meta.name,
-      company: job.meta.company,
-      images: job.meta.images,
-      impact: job.meta.impact,
-      tools: job.meta.tools,
-      challenges: job.meta.challenges,
-      content: job.body,
-    } as Job;
-  });
-
-  skills.value = jobs.reduce(
-    (previousValue, currentValue) =>
-      previousValue.concat(...currentValue.tools),
-    [] as string[],
-  );
-
-  companies.value = companyQuery
-    .sort((a, b) =>
-      isStringDateAfter(a.meta.end as string, b.meta.end as string) ? 0 : 1,
-    )
-    .map((company) => {
-      return {
-        path: company.path,
-        name: company.meta.name,
-        url: company.meta.url,
-        logo: company.meta.logo,
-        position: company.meta.position,
-        start: company.meta.start,
-        end: company.meta.end,
-        content: company.body,
-        jobs: jobs.filter((job) => job.company === company.meta.name),
-      } as Company;
-    });
-});
-
-function isStringDateAfter(
-  dateStringFirst: string,
-  dateStringSecond: string,
-): boolean {
-  const dateFirst = new Date(dateStringFirst);
-  const dateSecond = new Date(dateStringSecond);
-
-  return isAfter(dateFirst, dateSecond);
-}
-</script>

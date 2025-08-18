@@ -1,59 +1,3 @@
-<template>
-  <div
-    :class="[
-      'font-sans select-none',
-      {
-        'cursor-grab': !isDragging,
-        'cursor-grabbing': isDragging,
-        'text-primary-light': progress > 1,
-      },
-    ]"
-  >
-    <div
-      ref="dragBar"
-      :style="{
-        '--progress-percentage': `calc(${progress ?? 0}% + 8px)`,
-      }"
-      :class="[
-        'relative rounded-full border p-xs w-full grid content-center justify-center h-[27px]',
-        {
-          'border-black': progress <= 1,
-          'border-primary-light': progress > 1,
-        },
-      ]"
-      @mousedown="startDrag"
-      @touchstart="startDrag"
-      @touchmove="onDrag"
-      @touchend="endDrag"
-      @touchcancel="endDrag"
-    >
-      <div
-        :class="[
-          'absolute inset-[4px] cursor-grab bg-highlight rounded-full w-[var(--progress-percentage)]',
-          'min-w-[17px] max-w-[calc(100%-8px)] pointer-events-none transition-none',
-        ]"
-      ></div>
-      <span
-        class="pointer-events-none text-footnote mix-blend-difference leading-[1em]"
-      >
-        {{ steps[currentStep] }}
-      </span>
-    </div>
-    <div
-      id="dragger"
-      :class="[
-        'absolute inset-0 bg-highlight/10 transition duration-1000 ease-in-out',
-        {
-          'opacity-0 pointer-events-none': !isDragging,
-        },
-      ]"
-      @mousedown="onDrag"
-      @mousemove="onDrag"
-      @mouseup="endDrag"
-      @mouseleave="endDrag"
-    ></div>
-  </div>
-</template>
 <script setup lang="ts">
 import { ref } from "vue";
 import useProgress from "~/composables/useProgress";
@@ -114,6 +58,67 @@ function onDrag(event: Event) {
   }
 }
 </script>
+<template>
+  <div
+    :class="[
+      'font-sans select-none',
+      {
+        'cursor-grab': !isDragging,
+        'cursor-grabbing': isDragging,
+        'text-primary-light': progress > 1,
+      },
+    ]"
+  >
+    <div
+      ref="dragBar"
+      :style="{
+        '--progress-percentage': `calc(${progress ?? 0}% + 8px)`,
+      }"
+      :class="[
+        'relative rounded-full border p-xs w-full grid content-center justify-center h-[27px]',
+        {
+          'border-black': progress <= 1,
+          'border-primary-light': progress > 1,
+        },
+      ]"
+      @mousedown="startDrag"
+      @touchstart="startDrag"
+      @touchmove="onDrag"
+      @touchend="endDrag"
+      @touchcancel="endDrag"
+    >
+      <div
+        :class="[
+          'absolute inset-[4px] cursor-grab bg-highlight rounded-full w-[var(--progress-percentage)]',
+          'min-w-[17px] max-w-[calc(100%-8px)] pointer-events-none transition-none',
+        ]"
+      ></div>
+      <span
+        :class="[
+          'pointer-events-none text-footnote leading-[1em]',
+          {
+            'mix-blend-difference': progress > 1,
+          },
+        ]"
+      >
+        {{ steps[currentStep] }} {{ Math.trunc(progress) }}
+      </span>
+    </div>
+    <div
+      id="dragger"
+      :class="[
+        'absolute inset-0 bg-highlight/10 transition duration-1000 ease-in-out',
+        {
+          'opacity-0 pointer-events-none': !isDragging,
+        },
+      ]"
+      @mousedown="onDrag"
+      @mousemove="onDrag"
+      @mouseup="endDrag"
+      @mouseleave="endDrag"
+    ></div>
+  </div>
+</template>
 <style lang="scss">
 #dragger {
   mask: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);

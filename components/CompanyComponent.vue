@@ -48,10 +48,10 @@ const logo = computed(() => {
 
       <img
         :class="[
-          'max-w-[120px] inline-block',
+          'max-h-[30px] inline-block',
           {
-            hidden: progress <= 10,
-            visible: progress > 10,
+            hidden: progress < 10,
+            visible: progress >= 10,
           },
         ]"
         :src="logo"

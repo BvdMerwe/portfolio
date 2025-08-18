@@ -24,7 +24,7 @@ const { progress } = useProgress();
     :class="[
       'transition-[grid-template-rows] overflow-y-hidden grid grid-rows-[0fr]',
       {
-        'grid-rows-[1fr]': isOpen || progress <= 10,
+        'grid-rows-[1fr]': isOpen || progress < 1,
       },
     ]"
   >
