@@ -2,18 +2,23 @@
 name: bunq Web
 company: bunq
 tools:
-    - ReactJS
+    - React
+    - Playwright
+    - Vite
+    - Vitest
     - TypeScript
-    - SCSS
-    - Sketch
-    - Git
-    - Laravel Forge
+    - PHP
+    - GitLab
+    - GitLabCI
+    - Figma
 ---
-I had to build unique NuxtJS pages with custom components & designs for each unique product that Afrihost offers. These pages are deployed on bare metal servers via Laravel Forge.
+bunq Web is the main web application that bunq customers interact with on a desktop or laptop. It saw tens of thousands of users from all across europe, and had to be compliant with PSD2 standards as well as adhering to the PCI-DSS standard.
+
 
 ### Challenges
-The designs for teach product was very unique and required a new approach with each build. This made it hard to reuse components, but we worked closely with the design and UX team to extract all reusable colours, styles and components to make it easier to deploy.
+Balancing prioritization of delivering new product features and addressing technical debt was a major challenge for this project considering it was written in a completely bespoke in-house framework.
 
 ### Impact
-An uptake in user sign ups during campaign periods.
-Better customer trust for specific demographics.
+- Improved security and PSD2 standards. 
+- Delivered a multitude of product updates and bug fixes over the course of 20 months.
+- Maintained and improved the developer experience of the project for a team of 7 engineers.

@@ -3,7 +3,7 @@ import type { Job } from "~/types/Job";
 export interface Company {
   path: string;
   name: string;
-  url: string;
+  url?: string;
   logo: {
     light: string;
     dark: string;

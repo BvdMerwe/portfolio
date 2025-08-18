@@ -101,7 +101,7 @@ function onDrag(event: Event) {
           },
         ]"
       >
-        {{ steps[currentStep] }} {{ Math.trunc(progress) }}
+        {{ steps[currentStep] }}
       </span>
     </div>
     <div

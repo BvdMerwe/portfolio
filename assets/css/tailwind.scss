@@ -5,11 +5,9 @@
 @tailwind utilities;
 
 body {
-  @apply bg-primary-light text-primary-dark text-paragraph;
-  font-family: serif;
+  @apply font-serif;
   &.styled {
-    @apply font-sans bg-primary-dark text-primary-light;
-
+    @apply font-sans;
     a:link, a:visited {
       @apply text-highlight;
     }
@@ -46,4 +44,24 @@ p:not(:first-child) {
 }
 a {
   @apply text-inline-link underline;
+}
+
+/* Stack effect: each card shifted down & back */
+.stack {
+  .card:nth-child(1) {
+    z-index: 5;
+    transform: translate(-30%, 30%);
+  }
+  .card:nth-child(2) {
+    z-index: 4;
+    transform: translate(-10%, 10%);
+  }
+  .card:nth-child(3) {
+    z-index: 3;
+    transform: translate(10%, -10%);
+  }
+  .card:nth-child(4) {
+    z-index: 2;
+    transform: translate(30%, -30%);
+  }
 }

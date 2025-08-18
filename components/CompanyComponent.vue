@@ -58,11 +58,17 @@ const logo = computed(() => {
         :alt="company.name"
       />
 
-      <a :href="company.url" rel="noreferrer" target="_blank" class="inline">
-        <span :class="{ visible: progress < 50, hidden: progress >= 50 }">
+      <a
+        v-if="typeof company.url === 'string'"
+        :href="company.url"
+        rel="noreferrer"
+        target="_blank"
+        class="inline"
+      >
+        <span :class="{ visible: progress < 75, hidden: progress >= 75 }">
           (link)
         </span>
-        <span :class="{ hidden: progress < 50, visible: progress >= 50 }">
+        <span :class="{ hidden: progress < 75, visible: progress >= 75 }">
           <SvgIconComponent name="external-link" />
         </span>
       </a>

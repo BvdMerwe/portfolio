@@ -19,10 +19,11 @@ function showPrevious() {
 <template>
   <div
     :class="[
-      'max-w-full gap-2 my-4 grid',
+      'max-w-full gap-2 my-4 grid transition-all',
       {
         'grid-cols-2': progress <= 33,
         'grid-cols-4': progress > 33,
+        '!grid-cols-1 !grid-rows-1 p-[20%] stack': progress > 85,
       },
     ]"
   >
@@ -31,10 +32,11 @@ function showPrevious() {
       :key="image"
       :src="image"
       :class="[
-        'overflow-hidden shrink-0 cursor-pointer',
+        'relative transition-all overflow-hidden shrink-0 cursor-pointer card',
         {
           'rounded-2xl': progress > 10,
           'border-highlight border-dashed border-2': progress > 66,
+          'row-start-1 col-start-1': progress > 85,
         },
       ]"
       alt="Work Showcase"

@@ -12,7 +12,7 @@ tools:
 ---
 I was tasked to build a uniform sign-up experience that can be reused across multiple product sites and multiple domains.
 
-::image-carousel-component{:images='["/assets/images/work/ah-newsletter/1.jpg", "/assets/images/work/ah-newsletter/2.jpg", "/assets/images/work/ah-newsletter/3.jpg", "/assets/images/work/ah-newsletter/4.jpg"]'}
+::image-carousel-component{:images='["/assets/images/work/ah-newsletter/1.jpg", "/assets/images/work/ah-newsletter/2.jpg", "/assets/images/work/ah-newsletter/3.jpg"]'}
 ::
 
 ### Challenges

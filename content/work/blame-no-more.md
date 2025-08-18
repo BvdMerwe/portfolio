@@ -13,7 +13,7 @@ I was briefed to rake the award-winning designs and make them an interactive rea
 
 I delivered a custom-built, native HTML and JS single web-page with interactive elements that elevated the already great designs.
 
-::image-carousel-component{:images='["/assets/images/work/blame/1.jpg", "/assets/images/work/blame/2.jpg", "/assets/images/work/blame/3.jpg", "/assets/images/work/blame/4.jpg"]'}
+::image-carousel-component{:images='["/assets/images/work/blame/1.jpg", "/assets/images/work/blame/2.jpg", "/assets/images/work/blame/3.jpg"]'}
 ::
 
 ### Challenges
