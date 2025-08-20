@@ -74,20 +74,10 @@ function isStringDateAfter(
 }
 </script>
 <template>
-  <div>
-    <div class="fixed inset-0">
-      <img
-        :class="[
-          'absolute top-0 w-screen opacity-0 d-full object-cover',
-          {
-            'opacity-100': progress > 1,
-          },
-        ]"
-        src="/assets/images/bg/bg-1.jpg"
-        alt="background"
-      />
-      <div class="absolute inset-0 backdrop-blur-[80px]" />
-    </div>
+  <div class="duration-1000">
+    <div
+      class="transition fixed inset-0 opacity-100 object-cover bg-repeat-y h-full bg-center backdrop-blur-[80px]"
+    ></div>
     <div
       :class="[
         'relative transition',

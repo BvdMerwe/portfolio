@@ -65,3 +65,9 @@ a {
     transform: translate(30%, -30%);
   }
 }
+
+body {
+  background: url('/assets/images/bg/bg-1.jpg');
+  background-size: cover;
+  background-repeat: repeat-y;
+}

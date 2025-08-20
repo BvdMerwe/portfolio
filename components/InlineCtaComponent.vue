@@ -3,7 +3,7 @@
     :class="{
       'text-highlight': progress > 10,
       uppercase: progress > 33,
-      'text-center': progress > 66,
+      'text-center md:text-start': progress > 66,
     }"
   >
     <span
