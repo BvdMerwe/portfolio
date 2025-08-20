@@ -22,6 +22,15 @@ onMounted(async () => {
     }
   });
 
+  window.setTimeout(() => {
+    document.body.classList.remove("no-animation");
+  }, 1000);
+
+  window.setTimeout(() => {
+    isLoading.value = false;
+    document.body.classList.add("bg-image");
+  }, 3000);
+
   const companyQuery = await queryCollection("companies").all();
   const workQuery = await queryCollection("work").all();
   isLoading.value = false;
@@ -82,6 +91,7 @@ function isStringDateAfter(
       :class="[
         'relative transition',
         {
+          reveal: isLoading,
           'bg-white text-primary-dark': progress <= 1,
           'text-primary-light text-paragraph bg-primary-dark': progress > 1,
           'duration-[3000ms]': progress > 50,

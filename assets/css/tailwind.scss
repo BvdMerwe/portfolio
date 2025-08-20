@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 body {
-  @apply font-serif;
+  @apply font-serif bg-black;
   &.styled {
     @apply font-sans;
     a:link, a:visited {
@@ -66,8 +66,10 @@ a {
   }
 }
 
-body {
-  background: url('/assets/images/bg/bg-1.jpg');
-  background-size: cover;
-  background-repeat: repeat-y;
+body.bg-image {
+  @apply bg-[url('/assets/images/bg/bg-1.jpg')] bg-cover bg-repeat-y;
+}
+
+.reveal {
+  @apply bg-primary-dark duration-0;
 }

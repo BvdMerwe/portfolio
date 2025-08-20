@@ -9,4 +9,17 @@ export default defineNuxtConfig({
       anchorLinks: { h2: false, h3: false, h4: false },
     },
   },
+  app: {
+    head: {
+      bodyAttrs: {
+        class: "no-animation styled",
+      },
+      style: [
+        {
+          textContent:
+            ".no-animation, .no-animation * { transition-duration: 0; opacity: 0; visibility: hidden; background: black; transition: all; }",
+        },
+      ],
+    },
+  },
 });
