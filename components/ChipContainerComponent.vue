@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const { progress } = useProgress();
+const { chips } = defineProps<{ chips: string[] }>();
+</script>
 <template>
   <ul
     :class="[
@@ -14,7 +18,3 @@
     <slot :use="$slots.default" mdc-unwrap="h1" />
   </ul>
 </template>
-<script setup lang="ts">
-const { progress } = useProgress();
-const { chips } = defineProps<{ chips: string[] }>();
-</script>

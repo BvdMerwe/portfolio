@@ -1,14 +1,20 @@
 <script setup lang="ts">
 import { format } from "date-fns";
-import type { Company } from "~/types/Company";
-import type { Job } from "~/types/Job";
-const { company } = defineProps<{ company: Company }>();
+import type {
+  CompaniesCollectionItem,
+  WorkCollectionItem,
+} from "@nuxt/content";
+
+const { company, works } = defineProps<{
+  company: CompaniesCollectionItem;
+  works: WorkCollectionItem[];
+}>();
 const { progress } = useProgress();
 const displayDateStart = format(company.start, "MMM y");
 const displayDateEnd = determineDateEnd();
 
 function determineDateEnd(): string {
-  if (typeof company.end === "string") {
+  if (typeof company.end === "string" && company.end !== "") {
     return format(company.end, "MMM y");
   } else {
     return "Present";
@@ -97,14 +103,10 @@ const logo = computed(() => {
       ({{ displayDateStart }} - {{ displayDateEnd ?? "Present" }})
     </span>
 
-    <ContentRenderer :value="company.content">
-      <slot :value="company.content" />
+    <ContentRenderer :value="company">
+      <slot :value="company" />
     </ContentRenderer>
 
-    <WorkComponent
-      v-for="job in company.jobs"
-      :key="job.name"
-      :job="job as Job"
-    />
+    <WorkComponent v-for="work in works" :key="work.name" :work="work" />
   </div>
 </template>

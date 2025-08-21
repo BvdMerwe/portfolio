@@ -2,18 +2,17 @@
 // TODO: Fix the motion and animate-presence stuff. Or consider removing.
 import { onMounted } from "vue";
 import { AnimatePresence } from "motion-v";
-import { isAfter } from "date-fns";
 import useProgress from "~/composables/useProgress";
-import type { Job } from "~/types/Job";
-import type { Company } from "~/types/Company";
 import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
 
 const { progress } = useProgress();
-const companies = ref<Company[]>([]);
-const skills = ref<string[]>();
 const isLoading = ref(true);
+const { data: companyData } = await useAsyncData(() =>
+  queryCollection("companies").order("end", "DESC").all(),
+);
+const { data: workData } = useAsyncData(() => queryCollection("work").all());
 
-onMounted(async () => {
+onMounted(() => {
   watchEffect(() => {
     if (progress.value > 1) {
       document.body.classList.add("styled");
@@ -22,6 +21,7 @@ onMounted(async () => {
     }
   });
 
+  // Remove loading classes on load.
   window.setTimeout(() => {
     document.body.classList.remove("no-animation");
   }, 1000);
@@ -31,56 +31,8 @@ onMounted(async () => {
     document.body.classList.add("bg-image");
   }, 3000);
 
-  const companyQuery = await queryCollection("companies").all();
-  const workQuery = await queryCollection("work").all();
   isLoading.value = false;
-
-  const jobs: Job[] = workQuery.map((job) => {
-    return {
-      path: job.path,
-      name: job.meta.name,
-      company: job.meta.company,
-      impact: job.meta.impact,
-      tools: job.meta.tools,
-      challenges: job.meta.challenges,
-      content: job.body,
-    } as Job;
-  });
-
-  skills.value = jobs.reduce(
-    (previousValue, currentValue) =>
-      previousValue.concat(...currentValue.tools),
-    [] as string[],
-  );
-
-  companies.value = companyQuery
-    .sort((a, b) =>
-      isStringDateAfter(a.meta.end as string, b.meta.end as string) ? 0 : 1,
-    )
-    .map((company) => {
-      return {
-        path: company.path,
-        name: company.meta.name,
-        url: company.meta.url,
-        logo: company.meta.logo,
-        position: company.meta.position,
-        start: company.meta.start,
-        end: company.meta.end,
-        content: company.body,
-        jobs: jobs.filter((job) => job.company === company.meta.name),
-      } as Company;
-    });
 });
-
-function isStringDateAfter(
-  dateStringFirst: string,
-  dateStringSecond: string,
-): boolean {
-  const dateFirst = new Date(dateStringFirst);
-  const dateSecond = new Date(dateStringSecond);
-
-  return isAfter(dateFirst, dateSecond);
-}
 </script>
 <template>
   <div class="duration-1000">
@@ -252,11 +204,17 @@ function isStringDateAfter(
             </p>
           </div>
 
-          <div v-if="companies.length" class="flex flex-col gap-xl">
+          <div v-if="companyData?.length" class="flex flex-col gap-xl">
             <CompanyComponent
-              v-for="company in companies"
+              v-for="company in companyData"
               :key="company.name"
-              :company="company as Company"
+              :company="company"
+              :works="
+                workData?.filter(
+                  (work) =>
+                    work.company.toLowerCase() === company.name.toLowerCase(),
+                ) ?? []
+              "
             />
           </div>
           <div v-else><h2>Loading...</h2></div>
