@@ -69,7 +69,7 @@ function onDrag(event: Event) {
 <template>
   <div
     :class="[
-      'font-sans select-none',
+      'font-sans select-none mx-4',
       {
         'cursor-grab': !isDragging,
         'cursor-grabbing': isDragging,
