@@ -10,4 +10,4 @@ end: 2022-04-01
 ---
 Afrihost is a South African internet service provider, providing a number of services, including fiber internet, fixed wireless, mobile services, VoIP, and web hosting.
 
-I was a part of the Brand team that took care of all the customer facing pages, emails and campaigns which helped win multiple ISP of the Year awards.
+I was part of the Brand team responsible for managing all customer-facing pages, emails, and campaigns, which contributed to winning multiple ISP of the Year awards.

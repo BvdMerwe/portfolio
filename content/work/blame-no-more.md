@@ -9,7 +9,7 @@ tools:
     - Indesign
     - Photoshop
 ---
-I was briefed to rake the award-winning designs and make them an interactive reality.
+I was briefed to take award-winning designs and make them an interactive reality.
 
 I delivered a custom-built, native HTML and JS single web-page with interactive elements that elevated the already great designs.
 
@@ -18,7 +18,7 @@ I delivered a custom-built, native HTML and JS single web-page with interactive 
 
 ### Challenges
 
-The page was only designed for desktop and in a very static format, so I had to work closely with the designer to make sure it popped in a way that would add to the campaign as a whole.
+The page was only designed for desktop and in a very static format, so I had to work closely with the designer to make sure it was engaging in a way that enhanced the overall campaign.
 
 ### Impact
 

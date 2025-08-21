@@ -12,11 +12,10 @@ tools:
     - GitLabCI
     - Figma
 ---
-bunq Web is the main web application that bunq customers interact with on a desktop or laptop. It saw tens of thousands of users from all across europe, and had to be compliant with PSD2 standards as well as adhering to the PCI-DSS standard.
-
+bunq Web is the main web application that bunq customers interact with on a desktop or laptop. It serves tens of thousands of users from all across Europe and had to be compliant with PSD2 standards, as well as adhering to the PCI-DSS standard.
 
 ### Challenges
-Balancing prioritization of delivering new product features and addressing technical debt was a major challenge for this project considering it was written in a completely bespoke in-house framework.
+Balancing prioritization of delivering new product features and addressing technical debt was a major challenge for this ongoing project, especially considering it was written in a completely bespoke in-house framework.
 
 ### Impact
 - Improved security and PSD2 standards. 

@@ -9,17 +9,17 @@ tools:
     - Indesign
     - Photoshop
 ---
-I was part of the development team that helped display the entire doom product range in an interesting way that is also easy to manage and keep content up-to-date.
+I was part of the development team that showcased the entire DOOM product range in an engaging way.
 
-We built a self-hosted WordPress site that acted as a headless CMS paired with a frontend built in Angular 2.
+We developed a self-hosted WordPress site that served as a headless CMS paired with a frontend built in Angular 2. We ensured that content creators could easily keep content up-to-date in a straightforward, and well-known interface.
 
 ::image-carousel-component{:images='["/assets/images/work/doom/1.jpg", "/assets/images/work/doom/2.jpg", "/assets/images/work/doom/3.jpg", "/assets/images/work/doom/4.jpg"]'}
 ::
 
 ### Challenges
 
-This was my first project working with AngularJS, before I had only test driven VueJS. I had to learn fast to make sure we could hit deadlines, which we did.
+This was my first project working with any reactive frontend framework in a professional setting. I had to learn fast to make sure we could hit deadlines, which we did.
 
 ### Impact
 
-An award-winning design brought to life.
+This effort resulted in an award-winning design brought to life.

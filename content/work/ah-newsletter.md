@@ -10,13 +10,13 @@ tools:
     - Git
     - Sendgrid
 ---
-I was tasked to build a uniform sign-up experience that can be reused across multiple product sites and multiple domains.
+I was challenged by the design team to modernize our newsletters and transactional emails. The designs were directly modeled after our main web page designs and made to look better than any other ISPs emails. 
 
 ::image-carousel-component{:images='["/assets/images/work/ah-newsletter/1.jpg", "/assets/images/work/ah-newsletter/2.jpg", "/assets/images/work/ah-newsletter/3.jpg"]'}
 ::
 
 ### Challenges
-So we made a VueJS package that could be imported into any of our NuxtJS based landing pages and apps. This package is completely configurable to cater the specific product, theme, and flow it is placed within.
+Mail clients are inherently challenging to work with, so we had to do extensive testing and iteration to ensure that our modern designs were working correctly on as many popular email clients as possible. Additionally, we had to ensure that we didn't exceed strict, self-imposed file size limits. This required a very intentional and strategic use of images.
 
 ### Impact
-Mail clients are inherently challenging to work with so we had to do a lot of testing and iteration to get our modern designs working correctly on as many common email clients as possible, We also had to make sure that we weren’t exceeding self imposed file size limits so images had to be used intentionally.
+We elevated newsletters and transactional emails to fit within the company brand, ensuring they appeared modern while maintaining email standards.
