@@ -4,6 +4,8 @@ import useProgress from "~/composables/useProgress";
 
 const isDragging = ref(false);
 const dragBar = ref();
+const hasDragged = ref(false);
+const shouldAnimate = ref(false);
 const { progress, setProgress } = useProgress();
 const steps: string[] = [
   "Literally just the content",
@@ -12,6 +14,11 @@ const steps: string[] = [
   "Modern",
   "Elevated",
 ];
+
+onMounted(() => {
+  window.setTimeout(() => (shouldAnimate.value = true), 10000);
+});
+
 const currentStep = computed(() => {
   return progress.value < 50
     ? clamp(
@@ -44,6 +51,7 @@ function startDrag(event: Event) {
 
 function onDrag(event: Event) {
   event.preventDefault();
+  hasDragged.value = true;
 
   if (isDragging.value) {
     const offsetWidth = dragBar.value.offsetWidth;
@@ -88,11 +96,21 @@ function onDrag(event: Event) {
       @touchcancel="endDrag"
     >
       <div
+        v-if="hasDragged === false && progress == 0 && shouldAnimate"
+        class="absolute inset-[-4px] max-w-[32px] bg-primary-dark/30 rounded-full animate-ping"
+      ></div>
+      <div
         :class="[
           'absolute inset-[4px] cursor-grab bg-highlight rounded-full w-[var(--progress-percentage)]',
           'min-w-[17px] max-w-[calc(100%-8px)] pointer-events-none transition-none',
         ]"
       ></div>
+      <div
+        v-if="hasDragged === false && progress == 0"
+        class="absolute left-0 pl-[25px] -m-[1px]"
+      >
+        →
+      </div>
       <span
         :class="[
           'pointer-events-none text-footnote leading-[1em]',

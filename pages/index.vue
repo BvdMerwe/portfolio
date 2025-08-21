@@ -143,7 +143,7 @@ onMounted(() => {
                   >Senior Frontend Engineer
                 </span>
               </AnimatePresence>
-              <h1 :class="{}">
+              <h1>
                 Hey! I'm Bernard<span
                   :class="{
                     'text-highlight': progress > 15,
