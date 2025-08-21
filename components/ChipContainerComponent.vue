@@ -12,7 +12,13 @@ const { chips } = defineProps<{ chips: string[] }>();
       },
     ]"
   >
-    <li v-for="(chip, n) in chips" :key="n">
+    <li
+      v-for="(chip, n) in chips"
+      :key="n"
+      :class="{
+        'text-sm leading-1': progress < 10,
+      }"
+    >
       <ChipComponent>{{ chip }}</ChipComponent>
     </li>
     <slot :use="$slots.default" mdc-unwrap="h1" />

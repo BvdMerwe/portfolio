@@ -72,7 +72,7 @@ onMounted(() => {
           </AnimatePresence>
         </div>
         <div class="h-full">
-          <div class="flex flex-col gap-xl sticky top-[40px]">
+          <div class="flex flex-col gap-lg sticky top-[40px]">
             <div class="flex flex-col gap-sm">
               <ul :class="['list-none', { 'flex gap-sm': progress > 20 }]">
                 <li class="p-0">
@@ -204,7 +204,7 @@ onMounted(() => {
             </p>
           </div>
 
-          <div v-if="companyData?.length" class="flex flex-col gap-xl">
+          <div v-if="companyData?.length" class="flex flex-col gap-lg">
             <CompanyComponent
               v-for="company in companyData"
               :key="company.name"
