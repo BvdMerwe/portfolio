@@ -204,7 +204,7 @@ function isStringDateAfter(
                   I’m a senior Frontend engineer. My friends call me Bernie, and
                   I made this thing for you to enjoy and learn about my journey.
                 </p>
-                <p>I’m have a passion for coding and a love for technology.</p>
+                <p>I have a passion for coding and a love for technology.</p>
                 <p>
                   I like to focus on Frontend development and am dedicated to
                   staying current with the latest technologies and trends.
