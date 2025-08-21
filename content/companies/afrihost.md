@@ -8,6 +8,6 @@ position: Frontend team lead
 start: 2020-10-01
 end: 2022-04-01
 ---
-baraka is an investment platform that empowers you to make informed and strategic long-term investment decisions. 
-Access a comprehensive suite of products, cutting-edge tools, and real-time market insights to build your wealth 
-aligned with your financial goals and values.
+Afrihost is a South African internet service provider, providing a number of services, including fiber internet, fixed wireless, mobile services, VoIP, and web hosting.
+
+I was a part of the Brand team that took care of all the customer facing pages, emails and campaigns which helped win multiple ISP of the Year awards.
