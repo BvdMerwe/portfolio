@@ -11,7 +11,7 @@
         >&gt;&gt;&gt;</AnimateInComponent
       >
       <a class="no-underline" :href="href">
-        <slot />
+        <slot mdc-unwrap="p" />
       </a>
       <AnimateInComponent v-if="progress > 33" class="ps-xs" display="inline"
         >&lt;&lt;&lt;</AnimateInComponent

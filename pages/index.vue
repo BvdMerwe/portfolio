@@ -7,10 +7,22 @@ import AnimateInComponent from "~/components/animation/AnimateInComponent.vue";
 
 const { progress } = useProgress();
 const isLoading = ref(true);
-const { data: companyData } = await useAsyncData(() =>
-  queryCollection("companies").order("end", "DESC").all(),
-);
+const { data: companyData } = await useAsyncData(async () => {
+  const companiesPast = await queryCollection("companies")
+    .order("end", "DESC")
+    .where("end", "IS NOT NULL")
+    .all();
+  const companiesPresent = await queryCollection("companies")
+    .order("start", "DESC")
+    .where("end", "IS NULL")
+    .all();
+
+  return [...companiesPresent, ...companiesPast];
+});
 const { data: workData } = useAsyncData(() => queryCollection("work").all());
+const { data: bioData } = useAsyncData(() =>
+  queryCollection("personal").where("name", "=", "Bio").first(),
+);
 
 onMounted(() => {
   watchEffect(() => {
@@ -70,7 +82,7 @@ onMounted(() => {
         </AnimatePresence>
 
         <div class="h-full">
-          <div class="flex flex-col gap-lg sticky top-[40px]">
+          <div class="flex flex-col gap-sm sticky top-[40px]">
             <div class="flex flex-col gap-sm">
               <ul :class="['list-none', { 'flex gap-sm': progress > 20 }]">
                 <li class="p-0">
@@ -140,54 +152,9 @@ onMounted(() => {
                   >Frontend Developer
                 </AnimateInComponent>
               </AnimatePresence>
-              <h1>
-                Hey! I&apos;m Bernard<span
-                  :class="{
-                    'text-highlight': progress > 45,
-                  }"
-                  >.</span
-                >
-              </h1>
-              <div>
-                <p>
-                  I&apos;m a Frontend developer. My friends call me Bernie, and
-                  I made this thing for you to enjoy and learn about my journey.
-                </p>
-                <p>I have a passion for coding and a love for technology.</p>
-                <p>
-                  I like to focus on Frontend development and am dedicated to
-                  staying current with the latest technologies and trends.
-                </p>
-                <InlineCtaComponent
-                  href="mailto:hello@bernardus.dev?subject=I%20like%20your%20style!%20Let's%20collaborate!"
-                >
-                  Let's chat!
-                </InlineCtaComponent>
-              </div>
             </div>
-            <div class="flex flex-col gap-sm">
-              <div class="grid gap-sm">
-                <h2>My Skills</h2>
-                <ChipContainerComponent
-                  :chips="[
-                    'TypeScript',
-                    'JavaScript',
-                    'Vue',
-                    'NuxtJS',
-                    'React',
-                    'NextJS',
-                    'PHP',
-                    'Laravel',
-                    'WordPress',
-                    'CraftCMS',
-                    'Git',
-                    'GitHub Actions',
-                    'GitLab Pipelines',
-                    'AWS (S3, ECR, ECS, SSM, SES)',
-                    'Kubernetes',
-                  ]"
-                />
-              </div>
+            <div class="flex flex-col gap-md">
+              <BioComponent v-if="bioData" :bio-data="bioData" />
             </div>
           </div>
         </div>
@@ -202,7 +169,7 @@ onMounted(() => {
             </p>
           </div>
 
-          <div v-if="companyData?.length" class="flex flex-col gap-lg">
+          <div v-if="companyData?.length" class="flex flex-col gap-lg mt-md">
             <CompanyComponent
               v-for="company in companyData"
               :key="company.name"

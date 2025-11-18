@@ -27,5 +27,13 @@ export default defineContentConfig({
         tools: z.array(z.string()),
       }),
     }),
+    personal: defineCollection({
+      type: "page",
+      source: "personal/**/*.md",
+      schema: z.object({
+        name: z.string(),
+        tools: z.array(z.string()),
+      }),
+    }),
   },
 });

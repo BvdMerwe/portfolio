@@ -42,13 +42,19 @@ const logo = computed(() => {
       ]"
     >
       <AnimatePresence>
-        <AnimateInComponent v-if="progress < 33" display="inline">
-          <h2 class="inline">
+        <AnimateInComponent
+          v-if="progress < 33 || logo === null"
+          display="inline"
+        >
+          <h2 class="inline whitespace-nowrap">
             {{ company.name }}
           </h2>
         </AnimateInComponent>
 
-        <AnimateInComponent v-if="progress >= 33" display="inline">
+        <AnimateInComponent
+          v-if="progress >= 33 && logo !== null"
+          display="inline"
+        >
           <img
             class="max-h-[40.5px] min-h-[40.5px] inline-block"
             :src="logo"
@@ -65,7 +71,7 @@ const logo = computed(() => {
         >
           <AnimatePresence>
             <AnimateInComponent v-if="progress < 70" display="inline">
-              <span> (link) </span>
+              <span>(link)</span>
             </AnimateInComponent>
             <AnimateInComponent v-if="progress >= 70" display="inline">
               <span>

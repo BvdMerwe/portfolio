@@ -4,7 +4,7 @@ url: https://tbwa.co.za/
 logo: 
   dark: /assets/images/logo/tbwa.png
   light: /assets/images/logo/tbwa.png
-position: Frontend developer
+position: Frontend Developer
 start: 2017-08-01
 end: 2020-10-01
 ---
