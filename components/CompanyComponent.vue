@@ -4,6 +4,7 @@ import type {
   CompaniesCollectionItem,
   WorkCollectionItem,
 } from "@nuxt/content";
+import AnimateInComponent from "~/components/animation/AnimateInComponent.vue";
 
 const { company, works } = defineProps<{
   company: CompaniesCollectionItem;
@@ -35,49 +36,45 @@ const logo = computed(() => {
       :class="[
         'flex gap-2',
         {
-          'items-baseline': progress <= 50,
-          'items-center': progress > 50,
+          'items-baseline': progress < 10,
+          'items-center': progress >= 10,
         },
       ]"
     >
-      <h2
-        :class="[
-          'inline',
-          {
-            hidden: progress >= 10,
-            visible: progress < 10,
-          },
-        ]"
-      >
-        {{ company.name }}
-      </h2>
+      <AnimatePresence>
+        <AnimateInComponent v-if="progress < 10" display="inline">
+          <h2 class="inline">
+            {{ company.name }}
+          </h2>
+        </AnimateInComponent>
 
-      <img
-        :class="[
-          'max-h-[30px] inline-block',
-          {
-            hidden: progress < 10,
-            visible: progress >= 10,
-          },
-        ]"
-        :src="logo"
-        :alt="company.name"
-      />
+        <AnimateInComponent v-if="progress >= 10" display="inline">
+          <img
+            class="max-h-[30px] inline-block"
+            :src="logo"
+            :alt="company.name"
+          />
+        </AnimateInComponent>
 
-      <a
-        v-if="typeof company.url === 'string'"
-        :href="company.url"
-        rel="noreferrer"
-        target="_blank"
-        class="inline"
-      >
-        <span :class="{ visible: progress < 75, hidden: progress >= 75 }">
-          (link)
-        </span>
-        <span :class="{ hidden: progress < 75, visible: progress >= 75 }">
-          <SvgIconComponent name="external-link" />
-        </span>
-      </a>
+        <a
+          v-if="typeof company.url === 'string'"
+          :href="company.url"
+          rel="noreferrer"
+          target="_blank"
+          class="inline"
+        >
+          <AnimatePresence>
+            <AnimateInComponent v-if="progress < 70" display="inline">
+              <span> (link) </span>
+            </AnimateInComponent>
+            <AnimateInComponent v-if="progress >= 70" display="inline">
+              <span>
+                <SvgIconComponent name="external-link" />
+              </span>
+            </AnimateInComponent>
+          </AnimatePresence>
+        </a>
+      </AnimatePresence>
     </div>
 
     <span
