@@ -1,4 +1,3 @@
-// TODO: Fix this to ensure that the progress value loaded from localstorage propagates everywhere.
 export default function useProgress() {
   const progress = useState<number>("progress", () => 0);
 

@@ -36,21 +36,21 @@ const logo = computed(() => {
       :class="[
         'flex gap-2',
         {
-          'items-baseline': progress < 10,
-          'items-center': progress >= 10,
+          'items-baseline': progress < 33,
+          'items-center': progress >= 33,
         },
       ]"
     >
       <AnimatePresence>
-        <AnimateInComponent v-if="progress < 10" display="inline">
+        <AnimateInComponent v-if="progress < 33" display="inline">
           <h2 class="inline">
             {{ company.name }}
           </h2>
         </AnimateInComponent>
 
-        <AnimateInComponent v-if="progress >= 10" display="inline">
+        <AnimateInComponent v-if="progress >= 33" display="inline">
           <img
-            class="max-h-[30px] inline-block"
+            class="max-h-[40.5px] min-h-[40.5px] inline-block"
             :src="logo"
             :alt="company.name"
           />
@@ -81,7 +81,7 @@ const logo = computed(() => {
       :class="[
         'font-medium text-lg',
         {
-          '': progress < 10,
+          '': progress < 33,
           'text-highlight': progress >= 50,
         },
       ]"

@@ -6,31 +6,22 @@
       'text-center md:text-start': progress > 66,
     }"
   >
-    <span
-      :class="[
-        'pe-xs',
-        {
-          hidden: progress < 33,
-        },
-      ]"
-      >&gt;&gt;&gt;</span
-    >
-    <a class="no-underline" :href="href">
-      <slot />
-    </a>
-    <span
-      :class="[
-        'ps-xs',
-        {
-          hidden: progress < 33,
-        },
-      ]"
-      >&lt;&lt;&lt;</span
-    >
+    <AnimatePresence>
+      <AnimateInComponent v-if="progress > 33" class="pe-xs" display="inline"
+        >&gt;&gt;&gt;</AnimateInComponent
+      >
+      <a class="no-underline" :href="href">
+        <slot />
+      </a>
+      <AnimateInComponent v-if="progress > 33" class="ps-xs" display="inline"
+        >&lt;&lt;&lt;</AnimateInComponent
+      >
+    </AnimatePresence>
   </div>
 </template>
 <script setup lang="ts">
 import useProgress from "~/composables/useProgress";
+import AnimateInComponent from "~/components/animation/AnimateInComponent.vue";
 const { progress } = useProgress();
 
 const { href } = defineProps<{ href: string }>();
