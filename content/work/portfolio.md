@@ -18,4 +18,4 @@ I started working on this in late-2023 while seeking employment, and finished th
 Obtaining all the visual assets for past projects is a real pain - if I could give any designer/developer advice; make screenshots of your work!
 
 ### Impact
-See for yourself: [Analytics](https://umami.bernardus.dev/share/z7mfgoBnhjkzS0bd/bernardus.dev){target="_blank"}
+Have a look at the [analytics](https://umami.bernardus.dev/share/z7mfgoBnhjkzS0bd/bernardus.dev){target="_blank"}
