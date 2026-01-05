@@ -10,4 +10,4 @@ end: 2025-09-01
 ---
 bunq is a European neobank that offers a range of personal and business banking services, including accounts, cards, and various financial management tools, with a focus on user-friendliness and international travel. 
 
-I grew the frontend team by over 50%, addressing a general lack of capacity that enabled the delivery of larger features, and tackling of more technical debt.
+I grew the frontend team to with capable developers, addressing a general lack of capacity that enabled the delivery of larger features, and tackling of more technical debt. 
