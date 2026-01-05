@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { motion } from "motion-v";
+import type { TargetAndTransition } from "motion-v";
 
 const props = defineProps<{
   display?: "block" | "inline";
 }>();
 
-function determineAnimate(): any {
-  let result: any = { opacity: 1 };
+function determineAnimate(): TargetAndTransition {
+  let result: TargetAndTransition = { opacity: 1 };
 
   if (props.display === "inline") {
     result = {
@@ -24,8 +25,8 @@ function determineAnimate(): any {
   return result;
 }
 
-function determineInitial(): any {
-  let result: any = {
+function determineInitial(): TargetAndTransition {
+  let result: TargetAndTransition = {
     opacity: 0,
   };
 
