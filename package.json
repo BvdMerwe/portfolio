@@ -11,8 +11,8 @@
     "preview": "nuxt preview",
     "lint:js": "eslint --ext \".ts,.vue\" --ignore-path .gitignore .",
     "lint:prettier": "prettier --check .",
-    "lint": "yarn lint:js && yarn lint:prettier",
-    "lintfix": "prettier --write --list-different . && yarn lint:js --fix",
+    "lint": "pnpm lint:js && pnpm lint:prettier",
+    "lintfix": "prettier --write --list-different . && pnpm lint:js --fix",
     "start": "node .output/server/index.mjs"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "eslint": "^10.2.0",
     "eslint-config-prettier": "^9.1.2",
     "eslint-plugin-prettier": "^5.5.3",
-    "nuxt": "^4.4.7",
+    "nuxt": "^4.5.2",
     "prettier": "^3.6.2",
     "sass": "^1.89.2",
     "typescript": "^5.8.3"
@@ -42,7 +42,6 @@
       "picomatch@^2": "^2.3.2",
       "picomatch@^4": "^4.0.4",
       "socket.io-parser": "^4.2.6",
-      "vite": "^7.3.2",
       "h3": "^1.15.8",
       "node-forge": "^1.4.0",
       "flatted": "^3.4.2",
