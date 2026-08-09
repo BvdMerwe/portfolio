@@ -23,9 +23,6 @@ importers:
 
   .:
     dependencies:
-      '@nuxt/vite-builder':
-        specifier: ^4.5.2
-        version: 4.5.2(36dadecfda7a48b144b72d9274fcdac0)
       better-sqlite3:
         specifier: ^12.5.0
         version: 12.5.0
