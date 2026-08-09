@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
-import { AnimatePresence, motion } from "motion-v";
+import {onMounted} from "vue";
+import {AnimatePresence} from "motion-v";
 import useProgress from "~/composables/useProgress";
 import DownloadResumeComponent from "~/components/DownloadResumeComponent.vue";
 import AnimateInComponent from "~/components/animation/AnimateInComponent.vue";
@@ -24,18 +24,23 @@ const { data: bioData } = useAsyncData(() =>
   queryCollection("personal").where("name", "=", "Bio").first(),
 );
 
+const checkAndUpdateStyledClass = () => {
+  if (progress.value > 1) {
+    document.body.classList.add("styled");
+  } else {
+    document.body.classList.remove("styled");
+  }
+}
+
 onMounted(() => {
   watchEffect(() => {
-    if (progress.value > 1) {
-      document.body.classList.add("styled");
-    } else {
-      document.body.classList.remove("styled");
-    }
+    checkAndUpdateStyledClass();
   });
 
   // Remove loading classes on load.
   window.setTimeout(() => {
     document.body.classList.remove("no-animation");
+    checkAndUpdateStyledClass();
   }, 1000);
 
   window.setTimeout(() => {
