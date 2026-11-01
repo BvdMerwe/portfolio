@@ -7,7 +7,7 @@ function determineHeadScripts(): ResolvableArray<string | ResolvableScript> {
   if (process.env.NODE_ENV === "production") {
     headScripts.push({
       defer: true,
-      src: "https://overarch.bernardus.dev/overarch",
+      src: "https://bernardus.dev/um/script.js",
       "data-website-id": "75012deb-308d-452d-9564-043975e7c9a9",
     });
   }
